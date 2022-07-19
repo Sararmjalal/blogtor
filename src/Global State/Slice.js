@@ -15,7 +15,7 @@ export const Slice = createSlice({
     },
     logOut: (state) => {
       state.current_user = null
-      cookies.remove(`ut`, { path: '/' })
+      cookies.remove(`ut`)
       console.log("ba bye now")
       toast.info("You've logged out!")
       

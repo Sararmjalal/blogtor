@@ -160,7 +160,7 @@ const Blog = () => {
             <div className="flex"><span className="mt-1 text-base mr-1">Rate This Blog! </span>
             <ReactStars
               count={5}
-              value={blog.creator.averageScore}
+              value={0}
               size={20}
               onChange={submitRate}
               activeColor="#ffc200"

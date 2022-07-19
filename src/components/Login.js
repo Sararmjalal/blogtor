@@ -45,7 +45,7 @@ const Login = () => {
     });
     const data = await res.json()
     if(data.token === undefined) return toast.error("Username or password are wrong. Please try again!")
-    cookies.set('ut', data.token);
+    cookies.set('ut', data.token , { path: '/' });
     fetchMe() 
     toast.success("You've logged in successfully!")
   }
