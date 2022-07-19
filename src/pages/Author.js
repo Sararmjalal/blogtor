@@ -91,7 +91,7 @@ const Author = () => {
               activeColor="#ffc200"
               />
             </div>
-          <h3 className="text-white mb-2"><span>Name: </span><span className="text-gray-300">{author.name}</span></h3>
+          <div className="text-white mb-2"><span>Name: </span><span className="text-gray-300">{author.name}</span></div>
           <div className="text-white mb-2"><span>Bio: </span><span className="text-gray-300">{author.bio ? author.bio : "Nothing yet!"}</span></div>
           <div className="text-white mb-2"><span>Joined in: </span><span className="text-gray-300">{getDate(author.createdAt)}</span></div>
         </div>

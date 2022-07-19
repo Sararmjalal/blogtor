@@ -101,7 +101,7 @@ const EditProfile = () => {
         <div className="md:w-1/2 m-auto w-max flex flex-col justify-center items-center">
           <label for="fileInput">
             <img
-              className="mb-4 cursor-pointer w-52 h-52 rounded-full shadow-md	shadow-blue-700/10"
+              className="mb-4 cursor-pointer w-52 h-52 rounded-full shadow-md	shadow-blue-700/10 aspect-square object-cover"
               src={img}
               onError={(e) => setImg("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqGG1REKqgE2MNG8gLCJh5BEujRypjNSJsg&usqp=CAU")}
             >

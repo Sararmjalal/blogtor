@@ -137,7 +137,7 @@ const Blog = () => {
       </div>
       <div className="flex flex-row bg-gray-800 mt-4 mb-8 md:ml-4 p-4 rounded-2xl">
         <div>
-        <img className="w-32 rounded-full mr-4 " src={`${DOMAIN}/${blog.creator.avatar}`} onError={(e) => e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqGG1REKqgE2MNG8gLCJh5BEujRypjNSJsg&usqp=CAU"}></img>
+        <img className="w-32 aspect-square rounded-full mr-4 object-cover" src={`${DOMAIN}/${blog.creator.avatar}`} onError={(e) => e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqGG1REKqgE2MNG8gLCJh5BEujRypjNSJsg&usqp=CAU"}></img>
         </div>
         <div className="flex flex-col justify-center">
           <div className="mb-1"><span className="text-white">Author: </span><a href={`/author/${blog.creator._id}`}><span className="text-gray-300 hover:text-white cursor-pointer">{blog.creator.name}</span></a></div>
@@ -197,7 +197,7 @@ const Blog = () => {
                         return (
                           <div className="bg-gray-100 mb-4 p-4 rounded-2xl">
                             <div className="flex mb-1">
-                            <a href={`/author/${comment.user._id}`}><img className="hidden md:block w-8 h-8 rounded-full" src={`${DOMAIN}/${comment.user.avatar}`} onError={(e) => e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqGG1REKqgE2MNG8gLCJh5BEujRypjNSJsg&usqp=CAU"}></img></a>
+                            <a href={`/author/${comment.user._id}`}><img className="mr-2 md:mr-0 w-8 h-8 rounded-full aspect-square object-cover" src={`${DOMAIN}/${comment.user.avatar}`} onError={(e) => e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkqGG1REKqgE2MNG8gLCJh5BEujRypjNSJsg&usqp=CAU"}></img></a>
                             <a href={`/author/${comment.user._id}`}><span className="text-sm md:ml-2 mt-2 font-semibold">{comment.user.name}</span></a>
                             </div>
                             <div className="">
