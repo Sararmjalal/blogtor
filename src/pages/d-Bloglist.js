@@ -65,10 +65,14 @@ const BlogList = () => {
               <div>
               <div className="my-4 flex">
               <div className="w-24">
-                <img className="cursor-pointer w-24 h-24 rounded-full opacity-70 shadow-md	shadow-blue-700/10" src={blog.imgurl} onError={(e) => e.target.src=BlogImage}></img>
+                <a href={`/dashboard/blogs/edit/${blog._id}`}>
+                <img className="aspect-square object-cover cursor-pointer w-24 h-24 rounded-full opacity-70 shadow-md	shadow-blue-700/10" src={blog.imgurl} onError={(e) => e.target.src=BlogImage}></img>
+                </a>
                 </div>
                 <div className="lg:w-[calc(100vw-36rem)] w-[calc(100vw-16rem)]">
+                  <a href={`/dashboard/blogs/edit/${blog._id}`}>
                   <p className="text-gray-500 hover:text-gray-800 cursor-pointer ml-8 mt-8 font-semibold md:text-base text-sm">{blog.title.length > 15 ? blog.title.slice(0,15) + "..." : blog.title}</p>
+                  </a>
                 </div>
                 <div className="mt-8 text-right w-28 text-sm">
                   <a href={`/dashboard/blogs/edit/${blog._id}`}><button className="text-gray-500 hover:text-gray-800">Edit</button></a><span> | </span><button onClick={() => setConfirmDelete(true)} className="text-gray-500 hover:text-gray-800">Remove</button>
