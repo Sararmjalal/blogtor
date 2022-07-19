@@ -34,7 +34,7 @@ navigate("/")
             </a>
             <div className="flex items-center lg:order-2">
             {
-                          thisUser._id ? 
+                          thisUser ? 
                           <>
                           <p className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 cursor-pointer" onClick={logout}>Logout</p>
                           <p className="text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 cursor-pointer" onClick={() => navigate("dashboard")}>Dashboard</p>

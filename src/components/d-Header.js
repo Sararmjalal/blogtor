@@ -3,10 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser, logOut } from "../Global State/Slice";
 import Logo from "../Logo.png"
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
-
 const DashboardHeader = () => {
 
 const [mobMenu, setMobMenu] = useState(false)
@@ -16,7 +12,6 @@ const dispatch = useDispatch()
 
 const logout = () => {
     dispatch(logOut())
-    cookies.remove('ut')
     nav("/")
 
 }

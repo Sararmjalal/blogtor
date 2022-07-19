@@ -10,7 +10,7 @@ const DashboardLayout = () => {
   const thisUser = useSelector(selectUser)
 
   useEffect(() => {
-    if(!thisUser._id) return nav("/")
+    if(!thisUser) return nav("/")
   }, [])
 
   return (
