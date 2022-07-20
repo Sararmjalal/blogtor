@@ -1,6 +1,7 @@
 import BlogImage from "../uploads/BlogImage.jpg"
 import { useRef } from "react"
 import { DOMAIN } from "../config/constants"
+import ReactStars from "react-rating-stars-component";
 
 const BlogCard = ({ blog }) => {
   const contentRef = useRef(null)
@@ -19,16 +20,28 @@ const BlogCard = ({ blog }) => {
     contentRef.current.innerHTML = blog.content
     contentRef.current.innerHTML = contentRef.current.children[0]?.innerText.length > 50 ? contentRef.current.children[0].innerText.slice(0, 50) + " ..." : contentRef.current.children[0].innerText
   }
-
+console.log(blog)
   return (
     <div className="flex flex-col mb-4 shadow-md	shadow-blue-700/10 mx-4 rounded-2xl overflow-hidden">
     <a href={`/blog/${blog._id}`}><img className="cursor-pointer opacity-80 aspect-square object-cover mb-4" src={blog.imgurl} onError={(e) => e.target.src=BlogImage}></img></a>
-    <div className="px-4">
-    <a href={`/blog/${blog._id}`}><h3 className="font-semibold lg:text-lg text-base mb-2">{blog.title.length > 15 ? blog.title.slice(0, 15) + "..." : blog.title}</h3></a>
-      <p ref={contentRef} className="text-gray-500 xl:h-10 md:h-14 sm:h-10 mb-2 text-[14px]"></p>
-    </div>
-    <a href={`/blog/${blog._id}`}><button className="text-left px-4 mb-4 text-blue-700 font-semibold cursor-pointer w-max text-sm">Read more</button></a>
-    <div className="border-b-2 border-slate-200	mb-2"></div>
+      <div className="px-4">
+        <a href={`/blog/${blog._id}`}><h3 className="font-semibold lg:text-lg text-base mb-2">{blog.title.length > 15 ? blog.title.slice(0, 15) + "..." : blog.title}</h3></a>
+            <p ref={contentRef} className="text-gray-500 xl:h-10 md:h-14 sm:h-10 mb-2 text-[14px]"></p>
+      </div>
+      <a href={`/blog/${blog._id}`}><button className="text-left px-4 text-blue-700 font-semibold cursor-pointer w-max text-sm">Read more</button></a>
+      <div className="flex mb-4 ml-4">
+          <span>
+          <ReactStars
+            count={5}
+            value={blog.averageScore}
+            size={17}
+            edit={false}
+            activeColor="#ffc200"
+            />
+          </span>
+          <span className="text-sm ml-1 mt-0.5 text-gray-700">({blog.rateCount})</span>
+        </div>
+      <div className="border-b-2 border-slate-200	mb-2"></div>
       <div className="flex flex-row px-4 pb-4">
         {
           blog.creator ? 

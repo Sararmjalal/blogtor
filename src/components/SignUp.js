@@ -49,7 +49,7 @@ const Signup = () => {
         if (data.msg === 'this username already exists in the database')
           return toast.error("You've already signed up. Please login!")
 
-        cookies.set('ut', data.token);
+        cookies.set('ut', data.token, {path: "/"});
         fetchMe()
         toast.success("You've signed up successfully!")
       })

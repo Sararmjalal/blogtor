@@ -137,7 +137,9 @@ const Blog = () => {
   
   
   if (loading) return <Loading />
-  if(notFound) return <NotFound />
+  if (notFound) return <NotFound />
+  
+  console.log(blog)
   return (
     <div className=" m-auto md:w-2/3 w-5/6 text-gray-800 h-min-screen mb-8">
           <p onClick={() => navigate(-1)} className="my-4 w-max bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-2xl text-gray-600 cursor-pointer text-sm">Go Back</p>
@@ -147,14 +149,19 @@ const Blog = () => {
       <div>
         <a href={`/blog/${params.id}`}><h1 className="mb-1 text-2xl font-bold">{blog.title}</h1></a>
         <div className="text-sm font-light"><span>Published Date: </span><span>{getBlogDate(blog.createdAt)}</span></div>
-        <div className="mb-4">
-                      <ReactStars
-                      count={5}
-                      value={blog.averageScore}
-                      size={24}
-                      edit={false}
-                      activeColor="#ffc200"
-                      />
+        <div className="my-4 flex text-base">
+          <span>
+          <ReactStars
+            count={5}
+            value={blog.averageScore}
+            size={24}
+            edit={false}
+            activeColor="#ffc200"
+            />
+          </span>
+          <span className="mt-0.5 ml-1 text-gray-700 font-light">
+            {`(by ${blog.rateCount} people)`}
+          </span>
         </div>
         
         <div className="border-b-2 border-slate-200	mb-2"></div>

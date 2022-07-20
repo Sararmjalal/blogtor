@@ -21,9 +21,8 @@ const AllBlog = () => {
       })
   }, [])
 
+  if (loading) return <Loading />
 
-
-  if(loading) return <Loading />
   return (
     <div className=" m-6 md:m-12 text-gray-800 min-h-screen">
     <h1 className="text-2xl font-semibold mb-2">Blogs</h1>
