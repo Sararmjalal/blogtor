@@ -12,8 +12,6 @@ const dispatch = useDispatch()
 
 const logout = () => {
     dispatch(logOut())
-    nav("/")
-
 }
     return (
         <div className="shadow-md	shadow-gray-700/10 pt-1.5">

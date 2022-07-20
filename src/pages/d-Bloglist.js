@@ -11,6 +11,17 @@ const BlogList = () => {
   const [blogs, setBlogs] = useState([])
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [currentBlog, setCurrentBlog] = useState(null)
+
+  const showModal = (blog) => {
+    setConfirmDelete(true)
+    setCurrentBlog(blog)
+  }
+
+  const hideModal = () => {
+    setConfirmDelete(false)
+    setCurrentBlog(null)
+  }
 
   const fetchMyBlogs = () => {
     fetch(`${DOMAIN}/blog/my-blogs`, {
@@ -48,7 +59,7 @@ const BlogList = () => {
     setConfirmDelete(false)
   }
 
-  if(loading) return <Loading />
+  if (loading) return <Loading />
   return (
     <div className="lg:w-[calc(100vw-24rem)] m-6 md:m-12 text-gray-800">
       <div className="flex mb-4">
@@ -60,7 +71,7 @@ const BlogList = () => {
         {
           blogs.length !== 0 ? 
             
-          blogs.map(blog => {
+            blogs.map(blog => {
             return (
               <div>
               <div className="my-4 flex">
@@ -75,25 +86,10 @@ const BlogList = () => {
                   </a>
                 </div>
                 <div className="mt-8 text-right w-28 text-sm">
-                  <a href={`/dashboard/blogs/edit/${blog._id}`}><button className="text-gray-500 hover:text-gray-800">Edit</button></a><span> | </span><button onClick={() => setConfirmDelete(true)} className="text-gray-500 hover:text-gray-800">Remove</button>
+                  <a href={`/dashboard/blogs/edit/${blog._id}`}><button className="text-gray-500 hover:text-gray-800">Edit</button></a><span> | </span><button onClick={() => showModal(blog)} className="text-gray-500 hover:text-gray-800">Remove</button>
                 </div>
                 </div>
-                {
-                  confirmDelete ?
-                    <>
-                      <div className="bg-black fixed top-0 left-0 w-screen h-screen opacity-10 z-20" onClick={() => setConfirmDelete(false)}></div>
-                      <div className=" bg-white z-20 fixed w-5/6 m-auto left-[calc(50vw-42%)] top-[calc(50vh-17%)] xl:w-1/4 lg:w-1/3 lg:h-1/5  px-6 lg:top-[calc(50vh-16.5%)] lg:left-[calc(50vw-15%)] rounded-2xl shadow-md shadow-blue-700/10 justify-center">
-                      <h1 className="text-blue-700 mt-5 font-semibold	text-xl	">Delete Blog</h1>
-                      <p>Are you sure you want to delete this blog?</p>
-                        <div className="flex mt-4">
-                          <button onClick={() => setConfirmDelete(false)} className="w-[calc(50%-4px)] mt-3 mb-12 py-3  text-white bg-blue-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-base px-4 mr-2 ">Cancel</button>
-                          <button onClick={() => remove(blog._id)} className="w-[calc(50%-4px)] mt-3 mb-12 py-3 text-gray-400 bg-gray-200 hover:bg-primary-800  hover:bg-primary-800  font-medium rounded-xl text-base px-4 mr-2 ">Yes</button>
-                        </div>
-                      </div>
-                      </>
-                    :
-                    ""
-                }
+
               </div>
 
                
@@ -104,6 +100,29 @@ const BlogList = () => {
             <p className="font-semibold">You have no blogs yet. Create your first blog right now!</p>
         }
       </div>
+      {
+                  confirmDelete ?
+                    <>
+                      <div className="bg-black fixed top-0 left-0 w-screen h-screen opacity-10 z-20" onClick={hideModal}></div>
+                      <div className=" bg-white z-20 fixed w-5/6 m-auto left-[calc(50vw-42%)] top-[calc(50vh-17%)] xl:w-1/4 lg:w-1/3 lg:h-1/5  px-6 lg:top-[calc(50vh-16.5%)] lg:left-[calc(50vw-15%)] rounded-2xl shadow-md shadow-blue-700/10 justify-center">
+                      <h1 className="text-blue-700 mt-5 font-semibold	text-xl	">Delete Blog</h1>
+                      <p>Are you sure you want to delete this blog?</p>
+                        <div className="flex mt-4 mb-8">
+                          <button
+                            onClick={hideModal}
+                            className="w-[calc(50%-4px)] mt-3 py-3  text-white bg-blue-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-base px-4 mr-2 "
+                          >
+                            Cancel
+                          </button>
+                          <button onClick={() => remove(currentBlog._id)}
+                          className="w-[calc(50%-4px)] mt-3 py-3 text-gray-400 bg-gray-200 hover:bg-primary-800  hover:bg-primary-800  font-medium rounded-xl text-base px-4 "
+                          >Yes</button>
+                        </div>
+                      </div>
+                      </>
+                    :
+                    ""
+                }
     </div>
   )
 }

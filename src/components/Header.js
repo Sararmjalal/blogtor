@@ -21,7 +21,6 @@ const navigate = useNavigate()
 
 const logout = () => {
 dispatch(logOut())
-navigate("/")
 }
 
   return (

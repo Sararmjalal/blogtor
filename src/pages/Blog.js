@@ -6,12 +6,14 @@ import ReactStars from "react-rating-stars-component";
 import Cookies from 'universal-cookie';
 import { toast } from 'react-toastify';
 import Loading from "../components/Loading";
+import NotFound from "./NotFound";
 
 const cookies = new Cookies();
 
 const Blog = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
   const scrollRef = useRef(null)
   const params = useParams()
   const [blog, setBlog] = useState(null)
@@ -31,16 +33,37 @@ const Blog = () => {
     
   }
 
-  const getComments = () => {
-    fetch(`${DOMAIN}/comment/by-blog/${params.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then((res) => res.json())
-      .then((data) => {
-        setComments(data)
-    })
+  const getCommentsJix = async () => {
+    try {
+      const x = await fetch(`${DOMAIN}/comment/by-blog/${params.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const comments = await x.json()
+      return comments
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getSingleBlogJix = async () => {
+    try {
+      const x = await fetch(`${DOMAIN}/blog/single-blog/${params.id}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const data = await x.json()
+      if (data.msg === 'Unexpected token u in JSON at position 0') {
+        setNotFound(true)
+      }
+      return data
+    } catch (error) {
+      
+    }
   }
 
   const submitComment = () => {
@@ -60,8 +83,8 @@ const Blog = () => {
       .then((data) => {
         if (data.msg === 'ok') {
           setComment("")
-          getComments()
           toast.success("Your comment submited successfully!")
+          getCommentsJix().then(comments => setComments(comments))
         }
       })
   }
@@ -87,17 +110,18 @@ const Blog = () => {
   }
   
   useEffect(() => {
-    fetch(`${DOMAIN}/blog/single-blog/${params.id}`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then((res) => res.json())
-      .then((data) => {
-        setBlog(data)
-        getComments()
-        setLoading(false)
-      })
+
+    const abc = async () => {
+      const [comments, blogdata] = await Promise.all([
+        getCommentsJix(),
+        getSingleBlogJix(),
+      ]);
+      setBlog(blogdata)
+      setComments(comments)
+      setLoading(false)
+    }
+
+    abc()
 
   }, [])
 
@@ -112,7 +136,8 @@ const Blog = () => {
 
   
   
-  if(loading) return <Loading />
+  if (loading) return <Loading />
+  if(notFound) return <NotFound />
   return (
     <div className=" m-auto md:w-2/3 w-5/6 text-gray-800 h-min-screen mb-8">
           <p onClick={() => navigate(-1)} className="my-4 w-max bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-2xl text-gray-600 cursor-pointer text-sm">Go Back</p>

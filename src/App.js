@@ -22,6 +22,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Loading from './components/Loading';
+import NotFound from './pages/NotFound';
 
 const cookies = new Cookies();
 
@@ -69,7 +70,9 @@ function App() {
       />
 
   <Router>
-    <Routes>
+        <Routes>
+          
+        <Route path='*' element={<NotFound />}/>
         
         <Route path='/' element={<WebLayout />}>
           <Route path='' element={<Home />} />

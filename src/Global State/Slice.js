@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { DOMAIN } from '../config/constants';
 import Cookies from 'universal-cookie'
 import { toast } from "react-toastify";
 const cookies = new Cookies();
@@ -15,8 +16,8 @@ export const Slice = createSlice({
     },
     logOut: (state) => {
       state.current_user = null
-      cookies.remove(`ut`)
-      console.log("ba bye now")
+      cookies.remove(`ut`, { path: '/'})
+      window.location.assign('/');
       toast.info("You've logged out!")
       
     },

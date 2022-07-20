@@ -5,11 +5,13 @@ import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import BlogCard from "../components/BlogCard-all";
+import NotFound from "./NotFound";
 
 const Author = () => {
   const [author, setAuthor] = useState(null)
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
   const params = useParams()
   const navigate = useNavigate()
 
@@ -24,30 +26,49 @@ const Author = () => {
     
   }
 
-  useEffect(() => {
-    fetch(`${DOMAIN}/user/singleUser/${params.id}`, {
+  const fetchUserBlogs = async () => {
+    const res = await fetch(`${DOMAIN}/blog/by-user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        _id: params.id
+      })
+    })
+    const data = await res.json()
+    return data
+  }
+
+  const fetchUser = async () => {
+    const res = await fetch(`${DOMAIN}/user/singleUser/${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-    }).then((res) => res.json())
-    .then((data) => setAuthor(data))
-    .then(() => 
-      fetch(`${DOMAIN}/blog/by-user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          _id: params.id
-        })
-      }).then((res) => res.json())
-      .then((data) => setBlogs(data))
-    ).then(() => setLoading(false))
+    })
+    if(!res.ok) return setNotFound(true)
+    const data = res.json()
+    return data
+  }
+
+  useEffect(() => {
+    const fetchAll = async () => {
+      const [user, userBlogs] = await Promise.all([
+        fetchUser(),
+        fetchUserBlogs(),
+      ])
+      setAuthor(user)
+      setBlogs(userBlogs)
+      setLoading(false)
+    }
+
+    fetchAll()
   }, [])
 
 
-  if(loading) return <Loading />  
+  if (loading) return <Loading />  
+  if(notFound) return <NotFound />
   return (
     <>
       <div className={`hidden lg:block lg:absolute left-0 bg-gray-800 xl:w-1/5 lg:w-1/4 h-5/6 rounded-br-3xl z-0 justify-center pt-12 px-8`}>

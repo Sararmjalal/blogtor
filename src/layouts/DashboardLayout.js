@@ -10,9 +10,11 @@ const DashboardLayout = () => {
   const thisUser = useSelector(selectUser)
 
   useEffect(() => {
-    if(!thisUser) return nav("/")
+    
   }, [])
 
+
+  if(!thisUser) return window.location.assign(`/`)
   return (
     <div>
     <DashboardHeader />
