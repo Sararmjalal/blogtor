@@ -20,7 +20,7 @@ const navigate = useNavigate()
 
 
 const logout = () => {
-dispatch(logOut())
+  dispatch(logOut())
 }
 
   return (
