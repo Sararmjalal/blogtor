@@ -81,6 +81,8 @@ const Blog = () => {
       }),
     }).then((res) => res.json())
       .then((data) => {
+        if (data.msg === 'bad request: bad inputs')
+          return toast.error("The field cannot be empty!")
         if (data.msg === 'ok') {
           setComment("")
           toast.success("Your comment submited successfully!")
