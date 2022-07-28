@@ -20,7 +20,7 @@ const BlogCard = ({ blog }) => {
     contentRef.current.innerHTML = blog.content
     contentRef.current.innerHTML = contentRef.current.children[0]?.innerText.length > 50 ? contentRef.current.children[0].innerText.slice(0, 50) + " ..." : contentRef.current.children[0].innerText
   }
-console.log(blog)
+
   return (
     <div className="flex flex-col mb-4 shadow-md	shadow-blue-700/10 mx-4 rounded-2xl overflow-hidden">
     <a href={`/blog/${blog._id}`}><img className="cursor-pointer opacity-80 aspect-square object-cover mb-4" src={blog.imgurl} onError={(e) => e.target.src=BlogImage}></img></a>

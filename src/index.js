@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './Global State/store';
 import { Provider } from 'react-redux'
+import swDew from './swDev';
 
 
 
@@ -16,6 +17,8 @@ root.render(
     </React.StrictMode>
   </Provider>
 );
+
+swDew()
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -42,9 +42,11 @@ const Blog = () => {
         },
       });
       const comments = await x.json()
+      localStorage.setItem("comments", JSON.stringify(comments))
       return comments
     } catch (error) {
-      console.log(error)
+      let cachedComments = localStorage.getItem('comments')
+      return JSON.parse(cachedComments)
     }
   }
 
@@ -60,9 +62,11 @@ const Blog = () => {
       if (data.msg === 'Unexpected token u in JSON at position 0') {
         setNotFound(true)
       }
+      localStorage.setItem("blog", JSON.stringify(data))
       return data
     } catch (error) {
-      
+      let cachedBlog = localStorage.getItem('blog')
+      return JSON.parse(cachedBlog)
     }
   }
 
@@ -117,7 +121,7 @@ const Blog = () => {
       const [comments, blogdata] = await Promise.all([
         getCommentsJix(),
         getSingleBlogJix(),
-      ]);
+      ])
       setBlog(blogdata)
       setComments(comments)
       setLoading(false)
